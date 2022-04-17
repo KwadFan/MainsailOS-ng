@@ -28,6 +28,7 @@ cleanfix:
 
 # dist clean should contain clean as usual
 distclean:
+	$(MAKE) cleanfix
 	$(MAKE) clean
 	rm -f workspace/*.zip
 	rm -f workspace/*.xz
