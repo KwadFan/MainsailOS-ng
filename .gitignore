@@ -1,0 +1,17 @@
+#!/bin/bash
+#### MainsailOS Build Chain
+####
+#### Written by Stephan Wendel aka KwadFan <me@stephanwe.de>
+#### Copyright 2022
+#### https://github.com/mainsail-crew/MainsailOS
+####
+#### This File is distributed under GPLv3
+####
+
+# ignore images and 256sum files
+workspace/*.img*
+workspace/*.sha256
+
+# ignore temporary build folder
+workspace/aptcache
+workspace/mount

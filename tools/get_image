@@ -1,0 +1,122 @@
+#!/bin/bash
+#### MainsailOS Build Chain
+####
+#### Written by Stephan Wendel aka KwadFan <me@stephanwe.de>
+#### Copyright 2022
+#### https://github.com/mainsail-crew/MainsailOS
+####
+#### This File is distributed under GPLv3
+####
+
+# Exit on errors
+set -Ee
+
+# help message, shown whan script launched without arguments or -h flag
+function help_msg {
+    echo -e "get_image - Download Raspberry Pi OS Image and compare checksums."
+    echo -e "Usage:"
+    echo -e "\t get_image [Options]"
+    echo -e "\n\t\t-h       Prints this help."
+    echo -e "\n\t\tlegacy   Download Raspberry Pi OS legacy (buster)"
+    echo -e "\n\t\tlatest   Download Raspberry Pi OS (bullseye)"
+    echo -e "\n"
+}
+
+## get images and checksum files
+# this equals to Raspberry Pi OS legacy "buster"
+function get_legacy {
+    local url sha256
+    url="https://downloads.raspberrypi.org/raspios_oldstable_lite_armhf_latest"
+    sha256="https://downloads.raspberrypi.org/raspios_oldstable_lite_armhf_latest.sha256"
+    if [ -z "$(find workspace/ -iname '*img*')" ]; then
+        curl -JL "${url}" -o workspace/raspios-buster-armhf-lite.img.xz
+    else
+        echo -e "Image found, download skipped..."
+    fi
+    if [ -z "$(find workspace/ -iname '*sha256')" ]; then
+        curl -JL "${sha256}" -o workspace/raspios-buster-armhf-lite.sha256
+    else
+        echo -e "Checksum file found, download skipped..."
+    fi
+    compare_checksum "raspios-buster-armhf-lite.img.xz" "raspios-buster-armhf-lite.sha256"
+    unpack_image "raspios-buster-armhf-lite.img.xz"
+}
+
+# this equals to Raspberry Pi OS latest (current "bullseye")
+function get_latest {
+    local url
+    url="https://downloads.raspberrypi.org/raspios_lite_armhf_latest"
+    sha256="https://downloads.raspberrypi.org/raspios_lite_armhf_latest.sha256"
+    if [ -z "$(find workspace/ -iname '*img*')" ]; then
+        curl -JL "${url}" -o workspace/raspios-bullseye-armhf-lite.img.xz
+    else
+        echo -e "Image found, download skipped..."
+    fi
+    if [ -z "$(find workspace/ -iname '*sha256')" ]; then
+        curl -JL "${sha256}" -o workspace/raspios-bullseye-armhf-lite.sha256
+    else
+        echo -e "Checksum file found, download skipped..."
+    fi
+    compare_checksum "raspios-bullseye-armhf-lite.img.xz" "raspios-bullseye-armhf-lite.sha256"
+    unpack_image "raspios-bullseye-armhf-lite.img.xz"
+}
+
+function compare_checksum {
+    local imgfile imgsum sha256 sha256file
+    imgfile="workspace/${1}"
+    sha256file="workspace/${2}"
+    if [ -f "${imgfile}" ] && [ -f "${sha256file}" ]; then
+        echo -e "Comparing checksums ..."
+        imgsum="$(sha256sum "${imgfile}" | awk '{print $1}')"
+        sha256="$(awk '{print $1}' "${sha256file}")"
+        if [ "${imgsum}" != "${sha256}" ]; then
+            echo -e "Checksums mismatch! Exiting ..."
+            exit 1
+        else
+            echo -e "Checksums matching ..."
+        fi
+    else
+        echo -e "File not found! Exiting ..."
+    fi
+    return 0
+}
+
+function unpack_image {
+    if [ -f "workspace/${1}" ]; then
+        echo -e "Unarchive image file ..."
+        case "${1}" in
+            *.img.xz)
+                xz -vd "workspace/${1}"
+            ;;
+            *.zip)
+                unzip "workspace/${1}"
+            ;;
+        esac
+    fi
+}
+
+# main function
+function main {
+    local args
+    args="${1}"
+    ## Arg parse
+    case "${args}" in
+        legacy)
+            get_legacy
+        ;;
+        latest)
+            get_latest
+        ;;
+        -h|* )
+            help_msg
+            exit 1
+        ;;
+    esac
+    echo -e "Rename Imagefile to input.img ..."
+    mv "$(find workspace/ -iname '*.img')" "workspace/input.img"
+    return 0
+}
+
+# run main func
+main "${1}"
+exit 0
