@@ -14,5 +14,6 @@ set -ex
 
 export LC_ALL=C
 
+# shellcheck disable=SC1091
 source /common.sh
 install_cleanup_trap
