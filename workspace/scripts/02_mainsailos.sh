@@ -14,6 +14,7 @@ set -ex
 
 export LC_ALL=C
 
+# shellcheck disable=SC1091
 source /common.sh
 install_cleanup_trap
 
@@ -26,6 +27,6 @@ if [ -f "/etc/mainsailos_version" ]; then
     sudo rm -f /etc/mainsailos_version
 fi
 function get_parent {
-cat /etc/os-release | grep VERSION_CODENAME | cut -d '=' -f2
+grep "VERSION_CODENAME" /etc/os-release | cut -d '=' -f2
 }
 echo "${DIST_NAME} release ${DIST_VERSION} ($(get_parent))" > /etc/${DIST_NAME,,}-release
