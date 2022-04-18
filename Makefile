@@ -26,7 +26,8 @@ clean:
 
 # workspace/* is blocked by file Permissions from Docker Container and you are not building as root user
 cleanfix:
-	sudo chmod -R 0777 workspace/*
+	sudo chmod -R 0777 workspace/aptcache
+	sudo chmod -R 0777 workspace/mount
 
 # dist clean should contain clean as usual
 distclean:
