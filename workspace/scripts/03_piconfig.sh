@@ -29,7 +29,7 @@ mv "${PICONFIG_CONFIG_TXT_FILE}" "${PICONFIG_CONFIG_BAK_FILE}"
 cp "${PICONFIG_CMDLINE_TXT_FILE}" "${PICONFIG_CMDLINE_BAK_FILE}"
 
 echo_green "Copying files to root filesystem ..."
-unpack files/root /
+unpack files/piconfig/root /
 
 ### Disable Console and services to enable Hardware Serial.
 echo_green "Disable Serial Linux console ..."
