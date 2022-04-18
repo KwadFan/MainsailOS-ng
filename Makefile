@@ -7,10 +7,10 @@
 #### This File is distributed under GPLv3
 ####
 
-.PHONY: build clean cleanfix distclean get_latest get_legacy inspect
+.PHONY: build clean cleanfix distclean get_latest get_legacy help inspect
 
 
-all: build
+all: help
 
 build:
 	@if [ -f "${PWD}/workspace/input.img" ]; then \
@@ -40,6 +40,26 @@ get_latest:
 
 get_legacy:
 	$(PWD)/tools/get_image legacy
+
+help:
+	@echo "This is intended for local builds using docker."
+	@echo "Using the CustoPiZer Container, see:"
+	@echo "https://github.com/OctoPrint/CustoPiZer"
+	@echo ""
+	@echo "Some Parts need 'sudo' privileges."
+	@echo "You'll be asked for password, if needed."
+	@echo ""
+	@echo " Usage: make [action]"
+	@echo ""
+	@echo "  Available actions:"
+	@echo ""
+	@echo "   get_latest   Download Rasperry Pi OS latest"
+	@echo "   get_legacy   Download Rasperry Pi OS legacy"
+	@echo "   build        builds image"
+	@echo "   clean        cleans workspace cache from last build"
+	@echo "   cleanfix     set permissions to 0777 of workspace"
+	@echo "   distclean    cleans workspace completly from last build"
+	@echo ""
 
 inspect:
 	docker run --rm --privileged -it \
