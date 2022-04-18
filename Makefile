@@ -65,4 +65,3 @@ inspect:
 	docker run --rm --privileged -it \
 	-v $(PWD)/workspace/output.img:/image.img ghcr.io/octoprint/custopizer:latest \
 	/CustoPiZer/enter_image /image.img
-
