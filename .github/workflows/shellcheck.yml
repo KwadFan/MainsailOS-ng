@@ -17,6 +17,8 @@ jobs:
   shellcheck:
     name: Shellcheck
     runs-on: ubuntu-latest
+    matrix:
+      scripts: ["./tools", "./workspace/scripts"]
     steps:
       - name: Fetch Repository
         uses: actions/checkout@v2
@@ -25,5 +27,7 @@ jobs:
         env:
           SHELLCHECK_OPTS: -ax -s bash
         with:
+          scan_dir: ${{ matrix.scripts }}
+          additional_files: "-true"
           ignore_paths: workspace/config.local
           format: tty
