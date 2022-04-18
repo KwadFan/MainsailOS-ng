@@ -17,8 +17,9 @@ jobs:
   shellcheck:
     name: Shellcheck
     runs-on: ubuntu-latest
-    matrix:
-      scripts: ["./tools", "./workspace/scripts"]
+    strategy:
+      matrix:
+        scripts: ["./tools", "./workspace/scripts"]
     steps:
       - name: Fetch Repository
         uses: actions/checkout@v2
