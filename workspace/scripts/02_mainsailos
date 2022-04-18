@@ -17,6 +17,7 @@ export LC_ALL=C
 source /common.sh
 install_cleanup_trap
 
+# Mainsail Specific
 DIST_NAME="MainsailOS"
 DIST_VERSION="0.7.0"
 
