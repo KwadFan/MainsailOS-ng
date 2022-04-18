@@ -15,7 +15,9 @@ all: help
 build:
 	@if [ -f "${PWD}/workspace/input.img" ]; then \
 	docker run --rm --privileged \
-	-v $(PWD)/workspace:/CustoPiZer/workspace ghcr.io/octoprint/custopizer:latest; \
+	-v $(PWD)/workspace:/CustoPiZer/workspace \
+	-v $(PWD)/workspace/config.local:/CustoPiZer/config.local \
+	ghcr.io/octoprint/custopizer:latest; \
 	else echo -e "input.img not found. Exiting!"; exit 1;fi
 
 clean:
