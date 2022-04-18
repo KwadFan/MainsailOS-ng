@@ -28,7 +28,6 @@ jobs:
         env:
           SHELLCHECK_OPTS: -ax -s bash
         with:
-          scan_dir: ${{ matrix.scripts }}
-          additional_files: "-true"
+          scandir: ${{ matrix.scripts }}
           ignore_paths: workspace/config.local
           format: tty
