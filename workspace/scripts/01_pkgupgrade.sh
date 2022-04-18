@@ -18,5 +18,7 @@ export LC_ALL=C
 source /common.sh
 install_cleanup_trap
 
+echo_green "Get latest OS updates ..."
 apt update --allow-releaseinfo-change
 apt dist-upgrade --yes
+echo_green "...done!"

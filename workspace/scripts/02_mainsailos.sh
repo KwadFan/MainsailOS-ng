@@ -22,6 +22,7 @@ install_cleanup_trap
 DIST_NAME="MainsailOS"
 DIST_VERSION="0.7.0"
 
+echo_green "Creating Release file... "
 # Create mainsailos release file
 if [ -f "/etc/mainsailos_version" ]; then
     sudo rm -f /etc/mainsailos_version
@@ -30,3 +31,4 @@ function get_parent {
 grep "VERSION_CODENAME" /etc/os-release | cut -d '=' -f2
 }
 echo "${DIST_NAME} release ${DIST_VERSION} ($(get_parent))" > /etc/${DIST_NAME,,}-release
+echo_green "... done!"
