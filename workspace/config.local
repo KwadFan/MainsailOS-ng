@@ -29,3 +29,6 @@ EDITBASE_APT_CACHE=$EDITBASE_WORKSPACE/aptcache
 
 # cpu architecture
 EDITBASE_ARCH=armv7l
+
+DEBIAN_FRONTEND=noninteractive
+export DEBIAN_FRONTEND
