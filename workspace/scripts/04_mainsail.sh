@@ -24,7 +24,7 @@ MAINSAIL_DEPS="nginx"
 MAINSAIL_URL="https://github.com/mainsail-crew/mainsail/releases/latest/download/mainsail.zip"
 
 ### Install mainsail.cfg
-unpack files/mainsail/home/${BASE_USER} /home/${BASE_USER} ${BASE_USER}
+unpack files/mainsail/home/"${BASE_USER}" /home/"${BASE_USER}" "${BASE_USER}"
 
 echo_green "Installing Mainsail Webfrontend ..."
 
@@ -32,7 +32,7 @@ echo_green "Installing Mainsail Webfrontend ..."
 ## APT: Update Repo Database and install Dependencies
 
 apt update
-apt install ${MAINSAIL_DEPS} --no-install-recommends --yes
+apt install --yes --no-install-recommends "${MAINSAIL_DEPS}"
 
 ### Preparing nginx
 rm /etc/nginx/sites-enabled/default
@@ -42,12 +42,12 @@ ln -s /etc/nginx/sites-available/mainsail /etc/nginx/sites-enabled/
 sudo sed -i 's/rotate 14/rotate 2/' /etc/logrotate.d/nginx
 
 ### Download and Install Mainsail Web Frontend
-pushd /home/"${BASE_USER}"
+pushd /home/"${BASE_USER}" &> /dev/null || exit 1
 sudo -u "${BASE_USER}" wget -q --show-progress -O mainsail.zip "${MAINSAIL_URL}"
 sudo -u "${BASE_USER}" unzip mainsail.zip -d /home/"${BASE_USER}"/mainsail
 ## cleanup
 rm /home/"${BASE_USER}"/mainsail.zip
-popd
+popd &> /dev/null || exit 1
 
 ### Link logfiles to klipper_logs
 if [ ! -d "/home/${BASE_USER}/klipper_logs" ]; then
