@@ -35,7 +35,7 @@ echo_green "Copying MainsailOS premade moonraker.conf ..."
 unpack /files/moonraker/home/"${BASE_USER}" /home/"${BASE_USER}" "${BASE_USER}"
 
 # clone klipper repo
-pushd /home/"${BASE_USER}"
+pushd /home/"${BASE_USER}" &> /dev/null || exit 1
 sudo -u "${BASE_USER}" git clone -b "${MOONRAKER_REPO_BRANCH}" "${MOONRAKER_REPO_SHIP}" moonraker
 
 # use moonrakers Install script
@@ -53,6 +53,6 @@ systemctl_if_exists enable moonraker.service
 echo_green "Install PolicyKit Rules"
 sudo -u "${BASE_USER}" sh -c './moonraker/scripts/set-policykit-rules.sh -z --root'
 # finished
-popd
+popd &> /dev/null || exit 1
 
 echo_green "...done!"
