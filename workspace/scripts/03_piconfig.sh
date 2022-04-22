@@ -23,6 +23,20 @@ PICONFIG_CONFIG_TXT_FILE="/boot/config.txt"
 PICONFIG_CMDLINE_TXT_FILE="/boot/cmdline.txt"
 PICONFIG_CONFIG_BAK_FILE="/boot/orig-config.txt"
 PICONFIG_CMDLINE_BAK_FILE="/boot/orig-cmdline.txt"
+PICONFIG_BASE_USER="pi"
+PICONFIG_BASE_USER_PW="raspberry"
+
+echo_green "Setup default user and password"
+function create_userconf {
+    local pw_encrypt
+    pw_encrypt="$(echo "${PICONFIG_BASE_USER_PW}" | openssl passwd -6 -stdin)"
+    echo "${PICONFIG_BASE_USER}:${pw_encrypt}" > /boot/userconf.txt
+}
+create_userconf
+
+echo_green "Enable SSH Server by default ..."
+sudo touch /boot/ssh
+
 
 echo_green "Backup original config.txt and cmdline.txt ..."
 mv "${PICONFIG_CONFIG_TXT_FILE}" "${PICONFIG_CONFIG_BAK_FILE}"
