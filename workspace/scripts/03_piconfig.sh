@@ -54,3 +54,8 @@ echo_green "Disabling Bluetooth related services..."
 systemctl_if_exists disable hciuart.service
 systemctl_if_exists disable bluetooth.service
 systemctl_if_exists disable bluealsa.service
+
+### Enable wifi-power-management-off.service
+## This disables wifi power_save on boot
+echo_green "Enable wifi-power-management-off service ..."
+systemctl_if_exists enable wifi-power-management-off.service
