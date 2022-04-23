@@ -17,8 +17,6 @@ jobs:
         run: |
           cd src/
           ls -al
-      - name: Get an Image
-        run: |
           make get_latest
           ls -al workspace/
 
