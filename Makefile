@@ -7,9 +7,9 @@
 #### This File is distributed under GPLv3
 ####
 
-.PHONY: build clean cleanfix distclean get_latest get_legacy help inspect
+.PHONY: build clean cleanfix compress distclean get_latest get_legacy help inspect
 
-WORKSPACE="$(PWD)/workspace"
+WORKSPACE=$(PWD)/workspace
 
 all: help
 
@@ -22,22 +22,27 @@ build:
 	else echo -e "input.img not found. Exiting!"; exit 1;fi
 
 clean:
-	rm -rf workspace/aptcache
-	rm -rf workspace/mount
+	$(RM) -r $(WORKSPACE)/aptcache
+	$(RM) -r $(WORKSPACE)/mount
+	$(RM) $(WORKSPACE)/build.log
 
 # workspace/* is blocked by file Permissions from Docker Container and you are not building as root user
 cleanfix:
 	sudo chmod -R 0777 workspace/aptcache
 	sudo chmod -R 0777 workspace/mount
 
+# compress image to *.xz and rename
+compress:
+	@$(PWD)/tools/compress_image.sh
+
 # dist clean should contain clean as usual
 distclean:
 	$(MAKE) cleanfix
 	$(MAKE) clean
-	rm -f workspace/*.zip
-	rm -f workspace/*.xz
-	rm -f workspace/*.sha256
-	rm -f workspace/*.img
+	$(RM) workspace/*.zip
+	$(RM) workspace/*.xz
+	$(RM) workspace/*.sha256
+	$(RM) workspace/*.img
 
 get_latest:
 	$(PWD)/tools/get_image latest
@@ -62,10 +67,11 @@ help:
 	@echo "   build        builds image"
 	@echo "   clean        cleans workspace cache from last build"
 	@echo "   cleanfix     set permissions to 0777 of workspace"
+	@echo "   compress     compress image to 'xz' and rename"
 	@echo "   distclean    cleans workspace completly from last build"
 	@echo ""
 
 inspect:
 	docker run --rm --privileged -it \
-	-v $(PWD)/workspace/output.img:/image.img ghcr.io/octoprint/custopizer:latest \
+	-v $(WORKSPACE)/output.img:/image.img ghcr.io/octoprint/custopizer:latest \
 	/CustoPiZer/enter_image /image.img
