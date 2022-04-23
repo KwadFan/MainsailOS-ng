@@ -8,7 +8,7 @@
 #### This File is distributed under GPLv3
 ####
 
-#shellcheck disable=all
+# shellcheck disable=all
 
 # base config
 
@@ -30,5 +30,16 @@ EDITBASE_APT_CACHE=$EDITBASE_WORKSPACE/aptcache
 # cpu architecture
 EDITBASE_ARCH=armv7l
 
+
+## Non Standart configuration
+
+# Run dist-upgrade? bool (1:yes / 0:no)
+EDITBASE_RUN_FULL_UPGRADE=0
+
+
+
+
+### DO NOT EDIT BELOW THIS LINE! ###
+# Workaround for debconf erro messages.
 DEBIAN_FRONTEND=noninteractive
 export DEBIAN_FRONTEND

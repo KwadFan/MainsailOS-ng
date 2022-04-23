@@ -18,7 +18,11 @@ export LC_ALL=C
 source /common.sh
 install_cleanup_trap
 
-echo_green "Get latest OS updates ..."
-apt update --allow-releaseinfo-change
-apt dist-upgrade --yes
-echo_green "...done!"
+if [ "${EDITBASE_RUN_FULL_UPGRADE}" != "0" ]; then
+    echo_green "Get latest OS updates ..."
+    apt update --allow-releaseinfo-change
+    apt dist-upgrade --yes
+    echo_green "...done!"
+else
+    echo_red "Full Upgrade disabled by configuration! ... [SKIPPED]"
+fi
