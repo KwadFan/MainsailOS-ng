@@ -59,6 +59,26 @@ EDITBASE_MAINSAIL_DEPS="nginx"
 # Download URL
 EDITBASE_MAINSAIL_URL="https://github.com/mainsail-crew/mainsail/releases/latest/download/mainsail.zip"
 
+#### Klipper Setup [05_klipper.sh]
+EDITBASE_KLIPPER_SRC_DIR="/home/${EDITBASE_BASE_USER}/klipper"
+EDITBASE_KLIPPER_PYTHON_DIR="/home/${EDITBASE_BASE_USER}/klippy-env"
+EDITBASE_KLIPPER_REPO_SHIP="https://github.com/Klipper3d/klipper.git"
+EDITBASE_KLIPPER_REPO_BRANCH="master"
+# Dependencies must be listed as array!
+EDITBASE_KLIPPER_DEPS="git virtualenv python3-dev libffi-dev build-essential \
+libncurses-dev libusb-dev avrdude gcc-avr binutils-avr avr-libc \
+stm32flash dfu-util libnewlib-arm-none-eabi \
+gcc-arm-none-eabi binutils-arm-none-eabi libusb-1.0-0"
+EDITBASE_KLIPPER_USER_GROUPS="tty,dialout"
+EDITBASE_KLIPPER_USER_DIRS="klipper_config klipper_logs gcode_files"
+EDITBASE_KLIPPER_PYENV_REQ="scripts/klippy-requirements.txt"
+
+# Install of Input Shaper Dependencies bool (1:yes / 0:no)
+EDITBASE_KLIPPER_IS_INSTALL=1
+# general setup
+EDITBASE_IS_DEPS="python3-numpy python3-matplotlib"
+EDITBASE_IS_PIP="numpy"
+EDITBASE_IS_CFG_FILE="/boot/config.txt"
 
 ### DO NOT EDIT BELOW THIS LINE! ###
 # Workaround for debconf error messages.
