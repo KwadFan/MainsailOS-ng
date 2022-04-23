@@ -17,6 +17,10 @@ jobs:
         run: |
           cd src/
           ls -al
+      - name: Get an Image
+        run: |
+          make get_latest
+          ls -al workspace/
 
       # - name: Download Raspberry Pi OS Source Image
       #   run: aria2c -d repository/src/image/ --seed-time=0 https://downloads.raspberrypi.org/raspios_oldstable_lite_armhf_latest.torrent
