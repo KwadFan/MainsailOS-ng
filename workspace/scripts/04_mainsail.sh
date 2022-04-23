@@ -18,13 +18,8 @@ export LC_ALL=C
 source /common.sh
 install_cleanup_trap
 
-# Setup Vars
-BASE_USER="pi"
-MAINSAIL_DEPS="nginx"
-MAINSAIL_URL="https://github.com/mainsail-crew/mainsail/releases/latest/download/mainsail.zip"
-
 ### Install mainsail.cfg
-unpack files/mainsail/home/"${BASE_USER}" /home/"${BASE_USER}" "${BASE_USER}"
+unpack files/mainsail/home/"${EDITBASE_BASE_USER}" /home/"${EDITBASE_BASE_USER}" "${EDITBASE_BASE_USER}"
 
 echo_green "Installing Mainsail Webfrontend ..."
 
@@ -32,7 +27,7 @@ echo_green "Installing Mainsail Webfrontend ..."
 ## APT: Update Repo Database and install Dependencies
 
 apt update
-apt install --yes --no-install-recommends "${MAINSAIL_DEPS}"
+apt install --yes --no-install-recommends "${EDITBASE_MAINSAIL_DEPS}"
 
 ### Preparing nginx
 rm /etc/nginx/sites-enabled/default
@@ -42,19 +37,19 @@ ln -s /etc/nginx/sites-available/mainsail /etc/nginx/sites-enabled/
 sudo sed -i 's/rotate 14/rotate 2/' /etc/logrotate.d/nginx
 
 ### Download and Install Mainsail Web Frontend
-pushd /home/"${BASE_USER}" &> /dev/null || exit 1
-sudo -u "${BASE_USER}" wget -q --show-progress -O mainsail.zip "${MAINSAIL_URL}"
-sudo -u "${BASE_USER}" unzip mainsail.zip -d /home/"${BASE_USER}"/mainsail
+pushd /home/"${EDITBASE_BASE_USER}" &> /dev/null || exit 1
+sudo -u "${EDITBASE_BASE_USER}" wget -q --show-progress -O mainsail.zip "${EDITBASE_MAINSAIL_URL}"
+sudo -u "${EDITBASE_BASE_USER}" unzip mainsail.zip -d /home/"${EDITBASE_BASE_USER}"/mainsail
 ## cleanup
-rm /home/"${BASE_USER}"/mainsail.zip
+rm /home/"${EDITBASE_BASE_USER}"/mainsail.zip
 popd &> /dev/null || exit 1
 
 ### Link logfiles to klipper_logs
-if [ ! -d "/home/${BASE_USER}/klipper_logs" ]; then
-    sudo -u "${BASE_USER}" mkdir -p "/home/${BASE_USER}/klipper_logs"
+if [ ! -d "/home/${EDITBASE_BASE_USER}/klipper_logs" ]; then
+    sudo -u "${EDITBASE_BASE_USER}" mkdir -p "/home/${EDITBASE_BASE_USER}/klipper_logs"
 fi
-ln -s /var/log/nginx/mainsail-access.log /home/"${BASE_USER}"/klipper_logs/
-ln -s /var/log/nginx/mainsail-error.log /home/"${BASE_USER}"/klipper_logs/
+ln -s /var/log/nginx/mainsail-access.log /home/"${EDITBASE_BASE_USER}"/klipper_logs/
+ln -s /var/log/nginx/mainsail-error.log /home/"${EDITBASE_BASE_USER}"/klipper_logs/
 
 # Unpack root at the end, so files are modified before
 unpack files/mainsail/root /

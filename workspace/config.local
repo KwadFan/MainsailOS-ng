@@ -33,7 +33,7 @@ EDITBASE_ARCH=armv7l
 
 
 #### Non Standart configuration
-#### This section is used to setup our scripts
+#### This section is used to setup our scripts (workspace/scripts)
 
 #### Run dist-upgrade? bool (1:yes / 0:no) [01_pkgupgrade.sh]
 EDITBASE_RUN_FULL_UPGRADE=1
@@ -52,6 +52,13 @@ EDITBASE_PICFG_SSH=1
 EDITBASE_PICFG_HW_SER=1
 # disable wifi power_save bool (1:yes / 0:no)
 EDITBASE_PICFG_WIFI_PM=1
+
+#### mainsail WebGUI Setup [04_mainsail.sh]
+# Dependencies of GUI
+EDITBASE_MAINSAIL_DEPS="nginx"
+# Download URL
+EDITBASE_MAINSAIL_URL="https://github.com/mainsail-crew/mainsail/releases/latest/download/mainsail.zip"
+
 
 ### DO NOT EDIT BELOW THIS LINE! ###
 # Workaround for debconf error messages.
