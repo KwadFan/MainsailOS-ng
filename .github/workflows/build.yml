@@ -15,6 +15,13 @@ jobs:
       - name: Show Workspace
         run: ls -al
 
+      - name: Run CustoPiZer
+        uses: OctoPrint/CustoPiZer@main
+        with:
+          workspace: "${{ github.workspace }}/workspace"
+          scripts: "${{ github.workspace }}/workspace/scripts"
+          config: "${{ github.workspace }}/workspace/config.local"
+
       # - name: Download Raspberry Pi OS Source Image
       #   run: aria2c -d repository/src/image/ --seed-time=0 https://downloads.raspberrypi.org/raspios_oldstable_lite_armhf_latest.torrent
 
