@@ -12,8 +12,8 @@ jobs:
         with:
           repository: ${{ github.repository }}
 
-      - name: Show Workspace
-        run: ls -al
+      - name: Get Raspberry Pi OS bullseye Image
+        run: make get_latest
 
       - name: Run CustoPiZer
         uses: OctoPrint/CustoPiZer@main
