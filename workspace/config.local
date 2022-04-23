@@ -32,17 +32,26 @@ EDITBASE_APT_CACHE=$EDITBASE_WORKSPACE/aptcache
 EDITBASE_ARCH=armv7l
 
 
-## Non Standart configuration
-# This section is used to setup our scripts
+#### Non Standart configuration
+#### This section is used to setup our scripts
 
-# Run dist-upgrade? bool (1:yes / 0:no)
+#### Run dist-upgrade? bool (1:yes / 0:no) [01_pkgupgrade.sh]
 EDITBASE_RUN_FULL_UPGRADE=1
 
-# Distro Name and version
+#### Distro Name and version [02_mainsailos.sh]
 EDITBASE_DIST_NAME="MainsailOS"
 EDITBASE_DIST_VERSION="0.7.0"
+# first user setup
+EDITBASE_BASE_USER="pi"
+EDITBASE_BASE_USER_PW="raspberry"
 
-
+#### pi configuration [03_piconfig.sh]
+# enable ssh bool (1:yes / 0:no)
+EDITBASE_PICFG_SSH=1
+# enable hardware serial bool (1:yes / 0:no)
+EDITBASE_PICFG_HW_SER=1
+# disable wifi power_save bool (1:yes / 0:no)
+EDITBASE_PICFG_WIFI_PM=1
 
 ### DO NOT EDIT BELOW THIS LINE! ###
 # Workaround for debconf error messages.
