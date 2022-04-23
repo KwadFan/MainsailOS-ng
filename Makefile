@@ -9,15 +9,16 @@
 
 .PHONY: build clean cleanfix distclean get_latest get_legacy help inspect
 
+WORKSPACE="$(PWD)/workspace"
 
 all: help
 
 build:
 	@if [ -f "${PWD}/workspace/input.img" ]; then \
-	docker run --rm --privileged \
-	-v $(PWD)/workspace:/CustoPiZer/workspace \
-	-v $(PWD)/workspace/config.local:/CustoPiZer/config.local \
-	ghcr.io/octoprint/custopizer:latest; \
+	time docker run --rm --privileged \
+	-v $(WORKSPACE):/CustoPiZer/workspace \
+	-v $(WORKSPACE)/config.local:/CustoPiZer/config.local \
+	ghcr.io/octoprint/custopizer:latest | tee $(WORKSPACE)/build.log; \
 	else echo -e "input.img not found. Exiting!"; exit 1;fi
 
 clean:

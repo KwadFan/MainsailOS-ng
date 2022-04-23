@@ -15,3 +15,6 @@ workspace/*.sha256
 # ignore temporary build folder
 workspace/aptcache
 workspace/mount
+
+# ignore build.log
+workspace/build.log
