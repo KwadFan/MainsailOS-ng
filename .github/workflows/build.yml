@@ -13,7 +13,7 @@ jobs:
           repository: ${{ github.repository }}
 
       - name: Show Workspace
-        runs: ls -al
+        run: ls -al
 
       # - name: Download Raspberry Pi OS Source Image
       #   run: aria2c -d repository/src/image/ --seed-time=0 https://downloads.raspberrypi.org/raspios_oldstable_lite_armhf_latest.torrent
