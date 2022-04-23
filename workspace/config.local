@@ -34,7 +34,7 @@ EDITBASE_ARCH=armv7l
 ## Non Standart configuration
 
 # Run dist-upgrade? bool (1:yes / 0:no)
-EDITBASE_RUN_FULL_UPGRADE=0
+EDITBASE_RUN_FULL_UPGRADE=1
 
 
 
