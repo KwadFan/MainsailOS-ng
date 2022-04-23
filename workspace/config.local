@@ -11,7 +11,8 @@
 # shellcheck disable=all
 
 # base config
-
+# used to setup build environment
+# See https://github.com/OctoPrint/CustoPiZer#configuration for Details
 EDITBASE_DISTRO=raspbian
 
 EDITBASE_WORKSPACE=${DIST_PATH}/workspace
@@ -32,14 +33,18 @@ EDITBASE_ARCH=armv7l
 
 
 ## Non Standart configuration
+# This section is used to setup our scripts
 
 # Run dist-upgrade? bool (1:yes / 0:no)
 EDITBASE_RUN_FULL_UPGRADE=1
 
+# Distro Name and version
+EDITBASE_DIST_NAME="MainsailOS"
+EDITBASE_DIST_VERSION="0.7.0"
 
 
 
 ### DO NOT EDIT BELOW THIS LINE! ###
-# Workaround for debconf erro messages.
+# Workaround for debconf error messages.
 DEBIAN_FRONTEND=noninteractive
 export DEBIAN_FRONTEND

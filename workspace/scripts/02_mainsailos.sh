@@ -18,10 +18,6 @@ export LC_ALL=C
 source /common.sh
 install_cleanup_trap
 
-# Mainsail Specific
-DIST_NAME="MainsailOS"
-DIST_VERSION="0.7.0"
-
 echo_green "Creating Release file... "
 # Create mainsailos release file
 if [ -f "/etc/mainsailos_version" ]; then
@@ -30,5 +26,6 @@ fi
 function get_parent {
 grep "VERSION_CODENAME" /etc/os-release | cut -d '=' -f2
 }
-echo "${DIST_NAME} release ${DIST_VERSION} ($(get_parent))" > /etc/${DIST_NAME,,}-release
+echo "${EDITBASE_DIST_NAME} release ${EDITBASE_DIST_VERSION} ($(get_parent))" > \
+/etc/"${EDITBASE_DIST_NAME,,}"-release
 echo_green "... done!"
