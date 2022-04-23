@@ -21,7 +21,7 @@ function delete_old_image {
     img="$(find workspace/ -iname '*.xz' 2> /dev/null)"
     if [ -n "${img}" ]; then
         echo -e "Removing existing Image '${img}' ..."
-        rm -f "${img}" || echo -e "Unable to remove due file permissions!"; exit 1
+        rm -f "${img}" || echo -e "Unable to remove due file permissions!"
     fi
 }
 
@@ -39,6 +39,7 @@ function rename_output_img {
 # call compress_img <imagename>
 function compress_img {
     echo -e "Compressing image using xz ..."
+
     xz -evz9T0 "workspace/${1}"
 }
 
