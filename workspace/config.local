@@ -80,6 +80,11 @@ EDITBASE_IS_DEPS="python3-numpy python3-matplotlib"
 EDITBASE_IS_PIP="numpy"
 EDITBASE_IS_CFG_FILE="/boot/config.txt"
 
+#### Moonraker Setup [06_moonraker.sh]
+# There is not much to setup, because it reuses moonrakers install script
+EDITBASE_MOONRAKER_REPO_SHIP="https://github.com/Arksine/moonraker.git"
+EDITBASE_MOONRAKER_REPO_BRANCH="master"
+
 ### DO NOT EDIT BELOW THIS LINE! ###
 # Workaround for debconf error messages.
 DEBIAN_FRONTEND=noninteractive

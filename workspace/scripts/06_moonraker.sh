@@ -18,29 +18,27 @@ export LC_ALL=C
 source /common.sh
 install_cleanup_trap
 
-# Setup Vars
-BASE_USER="pi"
-
-MOONRAKER_REPO_SHIP="https://github.com/Arksine/moonraker.git"
-MOONRAKER_REPO_BRANCH="master"
-
+# Install moonraker
 echo_green "Installing Moonraker and enable Moonraker Service ..."
 
 # make sure that this module can be used standalone
+# Only git is needed due reusing moonraker install script.
 apt update
-apt install --yes --no-install-recommends git virtualenv
+apt install --yes --no-install-recommends git
 
 # install MainsailOS premade moonraker.conf
 echo_green "Copying MainsailOS premade moonraker.conf ..."
-unpack /files/moonraker/home/"${BASE_USER}" /home/"${BASE_USER}" "${BASE_USER}"
+unpack /files/moonraker/home/"${EDITBASE_BASE_USER}" \
+/home/"${EDITBASE_BASE_USER}" "${EDITBASE_BASE_USER}"
 
 # clone klipper repo
-pushd /home/"${BASE_USER}" &> /dev/null || exit 1
-sudo -u "${BASE_USER}" git clone -b "${MOONRAKER_REPO_BRANCH}" "${MOONRAKER_REPO_SHIP}" moonraker
+pushd /home/"${EDITBASE_BASE_USER}" &> /dev/null || exit 1
+sudo -u "${EDITBASE_BASE_USER}" \
+git clone -b "${EDITBASE_MOONRAKER_REPO_BRANCH}" "${EDITBASE_MOONRAKER_REPO_SHIP}" moonraker
 
 # use moonrakers Install script
 echo_green "Launch moonraker Install script (scripts/install-moonraker.sh)"
-sudo -u "${BASE_USER}" \
+sudo -u "${EDITBASE_BASE_USER}" \
 bash -c \
 '${HOME}/moonraker/scripts/install-moonraker.sh -z \
 -c ${HOME}/klipper_config/moonraker.conf \
@@ -51,7 +49,7 @@ systemctl_if_exists enable moonraker.service
 
 # install Polkit Rules
 echo_green "Install PolicyKit Rules"
-sudo -u "${BASE_USER}" sh -c './moonraker/scripts/set-policykit-rules.sh -z --root'
+sudo -u "${EDITBASE_BASE_USER}" sh -c './moonraker/scripts/set-policykit-rules.sh -z --root'
 # finished
 popd &> /dev/null || exit 1
 
