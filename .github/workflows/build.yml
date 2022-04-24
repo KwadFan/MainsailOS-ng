@@ -28,11 +28,6 @@ jobs:
           scripts: "${{ github.workspace }}/workspace/scripts"
           config: "${{ github.workspace }}/workspace/config.local"
 
-      - name: Debug
-        run: |
-          ls -al "${{ github.workspace }}"
-          ls -al "${{ github.workspace }}/workspace"
-
       - name: Compress Image
         run: make compress
 
