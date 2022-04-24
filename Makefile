@@ -28,8 +28,10 @@ clean:
 
 # workspace/* is blocked by file Permissions from Docker Container and you are not building as root user
 cleanfix:
-	sudo chmod -R 0777 workspace/aptcache
-	sudo chmod -R 0777 workspace/mount
+	@if [ -d "$(WORKSPACE)/aptcache" ]; then \
+	sudo chmod -R 0777 workspace/aptcache; fi
+	@if [ -d "$(WORKSPACE)/aptcache" ]; then \
+	sudo chmod -R 0777 workspace/mount; fi
 
 # compress image to *.xz and rename
 compress:
@@ -47,6 +49,9 @@ distclean:
 get_latest:
 	$(PWD)/tools/get_image latest
 
+get_latest64:
+	$(PWD)/tools/get_image latest64
+
 get_legacy:
 	$(PWD)/tools/get_image legacy
 
@@ -63,6 +68,7 @@ help:
 	@echo "  Available actions:"
 	@echo ""
 	@echo "   get_latest   Download Rasperry Pi OS latest"
+	@echo "   get_latest64 Download Rasperry Pi OS latest (64bit)"
 	@echo "   get_legacy   Download Rasperry Pi OS legacy"
 	@echo "   build        builds image"
 	@echo "   clean        cleans workspace cache from last build"

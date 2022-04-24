@@ -61,6 +61,25 @@ function get_latest {
     unpack_image "raspios-bullseye-armhf-lite.img.xz"
 }
 
+# this equals to Raspberry Pi OS latest (current "bullseye")
+function get_latest64 {
+    local url
+    url="https://downloads.raspberrypi.org/raspios_arm64_latest"
+    sha256="https://downloads.raspberrypi.org/raspios_arm64_latest.sha256"
+    if [ -z "$(find workspace/ -iname '*img*')" ]; then
+        curl -JL "${url}" -o workspace/raspios-bullseye-arm64-lite.img.xz
+    else
+        echo -e "Image found, download skipped..."
+    fi
+    if [ -z "$(find workspace/ -iname '*sha256')" ]; then
+        curl -JL "${sha256}" -o workspace/raspios-bullseye-arm64-lite.sha256
+    else
+        echo -e "Checksum file found, download skipped..."
+    fi
+    compare_checksum "raspios-bullseye-arm64-lite.img.xz" "raspios-bullseye-arm64-lite.sha256"
+    unpack_image "raspios-bullseye-arm64-lite.img.xz"
+}
+
 function compare_checksum {
     local imgfile imgsum sha256 sha256file
     imgfile="workspace/${1}"
@@ -106,6 +125,9 @@ function main {
         ;;
         latest)
             get_latest
+        ;;
+        latest64)
+            get_latest64
         ;;
         -h|* )
             help_msg
