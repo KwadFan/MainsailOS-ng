@@ -40,7 +40,7 @@ function rename_output_img {
 function compress_img {
     echo -e "Compressing image using xz ..."
 
-    xz -evz9T0 "workspace/${1}"
+    xz -evz9T0 "${PWD}/workspace/${1}"
 }
 
 ### MAIN
@@ -49,7 +49,7 @@ function main {
     date="$(date +%Y-%m-%d)"
     dir="${PWD}/workspace"
     # shellcheck disable=1091
-    source "${dir}/config.local"
+    source "${dir}/config.mainsail"
     img_name="${date}-${EDITBASE_DIST_NAME,,}-${EDITBASE_DIST_VERSION}.img"
     echo -e "Rename and compress 'output.img' ..."
     delete_old_image
