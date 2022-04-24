@@ -22,13 +22,8 @@ jobs:
           scripts: "${{ github.workspace }}/workspace/scripts"
           config: "${{ github.workspace }}/workspace/config.local"
 
+      - name: Debug
+        run: ls -al
+
       - name: Compress Image
         run: make compress
-
-      # - name: Compress the image
-      #   run: zip mainsailos-raspios-lite-latest.zip mainsailos-raspios-lite-latest.img
-
-      # - uses: actions/upload-artifact@v2
-      #   with:
-      #     name: mainsailos-raspios-lite-latest.zip
-      #     path: mainsailos-raspios-lite-latest.zip
