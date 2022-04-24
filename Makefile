@@ -31,6 +31,15 @@ build64:
 	ghcr.io/octoprint/custopizer:latest | tee $(WORKSPACE)/build.log; \
 	else echo -e "input.img not found. Exiting!"; exit 1;fi
 
+buildtest:
+	@if [ -f "${PWD}/workspace/input.img" ]; then \
+	time docker run --rm --privileged \
+	-v $(WORKSPACE):/CustoPiZer/workspace \
+	-v $(WORKSPACE)/config.mainsail:/CustoPiZer/config.mainsail \
+	-v $(WORKSPACE)/config.64bit:/CustoPiZer/config.local \
+	test1:latest | tee $(WORKSPACE)/build.log; \
+	else echo -e "input.img not found. Exiting!"; exit 1;fi
+
 
 clean:
 	$(RM) -r $(WORKSPACE)/aptcache
@@ -56,6 +65,10 @@ distclean:
 	$(RM) workspace/*.xz
 	$(RM) workspace/*.sha256
 	$(RM) workspace/*.img
+
+get_imagename:
+	@find workspace/ -type f -iname '*.xz' -printf "imageName=%f\n" \
+	2> /dev/null || true
 
 get_latest:
 	$(PWD)/tools/get_image latest

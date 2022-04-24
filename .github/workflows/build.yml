@@ -33,8 +33,7 @@ jobs:
 
       - name: Get Image Name
         run: |
-          IMG=$(find workspace/ -type f -iname '*.xz' -printf "%f\n" 2> /dev/null)
-          echo "imageName=${IMG}" >> $GITHUB_ENV
+          make get_imagename >> $GITHUB_ENV
 
       - name: Upload artifact
         uses: actions/upload-artifact@v3
