@@ -18,3 +18,7 @@ workspace/mount
 
 # ignore build.log
 workspace/build.log
+
+#ignore "test" files
+**/*test*
+**/*TEST*

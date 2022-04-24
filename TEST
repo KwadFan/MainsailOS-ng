@@ -1,4 +1,0 @@
-find workspace/ -type f -iname '*.xz' -printf "imageName=%f\n" \
-2> /dev/null || true
-imageName=2022-04-24-mainsailos-0.7.0.img.xz
-imageName=2022-04-24-mainsailos-0.7.0.img.xz
