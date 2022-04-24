@@ -1,5 +1,11 @@
 name: Build MainsailOS
 on:
+  push:
+    branches:
+      - "**"
+    paths:
+      - ".github/workflows/build.yml"
+
   workflow_dispatch:
 
 jobs:
