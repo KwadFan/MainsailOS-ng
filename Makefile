@@ -17,9 +17,20 @@ build:
 	@if [ -f "${PWD}/workspace/input.img" ]; then \
 	time docker run --rm --privileged \
 	-v $(WORKSPACE):/CustoPiZer/workspace \
+	-v $(WORKSPACE)/config.mainsail:/CustoPiZer/config.mainsail \
 	-v $(WORKSPACE)/config.local:/CustoPiZer/config.local \
 	ghcr.io/octoprint/custopizer:latest | tee $(WORKSPACE)/build.log; \
 	else echo -e "input.img not found. Exiting!"; exit 1;fi
+
+build64:
+	@if [ -f "${PWD}/workspace/input.img" ]; then \
+	time docker run --rm --privileged \
+	-v $(WORKSPACE):/CustoPiZer/workspace \
+	-v $(WORKSPACE)/config.mainsail:/CustoPiZer/config.mainsail \
+	-v $(WORKSPACE)/config.64bit:/CustoPiZer/config.local \
+	ghcr.io/octoprint/custopizer:latest | tee $(WORKSPACE)/build.log; \
+	else echo -e "input.img not found. Exiting!"; exit 1;fi
+
 
 clean:
 	$(RM) -r $(WORKSPACE)/aptcache

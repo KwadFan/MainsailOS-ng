@@ -64,8 +64,8 @@ function get_latest {
 # this equals to Raspberry Pi OS latest (current "bullseye")
 function get_latest64 {
     local url
-    url="https://downloads.raspberrypi.org/raspios_arm64_latest"
-    sha256="https://downloads.raspberrypi.org/raspios_arm64_latest.sha256"
+    url="https://downloads.raspberrypi.org/raspios_lite_arm64_latest"
+    sha256="https://downloads.raspberrypi.org/raspios_lite_arm64_latest.sha256"
     if [ -z "$(find workspace/ -iname '*img*')" ]; then
         curl -JL "${url}" -o workspace/raspios-bullseye-arm64-lite.img.xz
     else

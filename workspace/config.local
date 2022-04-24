@@ -31,61 +31,9 @@ EDITBASE_APT_CACHE=$EDITBASE_WORKSPACE/aptcache
 # cpu architecture
 EDITBASE_ARCH=armv7l
 
-
-#### Non Standart configuration
-#### This section is used to setup our scripts (workspace/scripts)
-
-#### Run dist-upgrade? bool (1:yes / 0:no) [01_pkgupgrade.sh]
-EDITBASE_RUN_FULL_UPGRADE=1
-
-#### Distro Name and version [02_mainsailos.sh]
-EDITBASE_DIST_NAME="MainsailOS"
-EDITBASE_DIST_VERSION="0.7.0"
-# first user setup
-EDITBASE_BASE_USER="pi"
-EDITBASE_BASE_USER_PW="raspberry"
-
-#### pi configuration [03_piconfig.sh]
-# enable ssh bool (1:yes / 0:no)
-EDITBASE_PICFG_SSH=1
-# enable hardware serial bool (1:yes / 0:no)
-EDITBASE_PICFG_HW_SER=1
-# disable wifi power_save bool (1:yes / 0:no)
-EDITBASE_PICFG_WIFI_PM=1
-
-#### mainsail WebGUI Setup [04_mainsail.sh]
-# Dependencies of GUI
-EDITBASE_MAINSAIL_DEPS="nginx"
-# Download URL
-EDITBASE_MAINSAIL_URL="https://github.com/mainsail-crew/mainsail/releases/latest/download/mainsail.zip"
-
-#### Klipper Setup [05_klipper.sh]
-EDITBASE_KLIPPER_SRC_DIR="/home/${EDITBASE_BASE_USER}/klipper"
-EDITBASE_KLIPPER_PYTHON_DIR="/home/${EDITBASE_BASE_USER}/klippy-env"
-EDITBASE_KLIPPER_REPO_SHIP="https://github.com/Klipper3d/klipper.git"
-EDITBASE_KLIPPER_REPO_BRANCH="master"
-# Dependencies must be listed as array!
-EDITBASE_KLIPPER_DEPS="git virtualenv python3-dev libffi-dev build-essential \
-libncurses-dev libusb-dev avrdude gcc-avr binutils-avr avr-libc \
-stm32flash dfu-util libnewlib-arm-none-eabi \
-gcc-arm-none-eabi binutils-arm-none-eabi libusb-1.0-0"
-EDITBASE_KLIPPER_USER_GROUPS="tty,dialout"
-EDITBASE_KLIPPER_USER_DIRS="klipper_config klipper_logs gcode_files"
-EDITBASE_KLIPPER_PYENV_REQ="scripts/klippy-requirements.txt"
-
-# Install of Input Shaper Dependencies bool (1:yes / 0:no)
-EDITBASE_KLIPPER_IS_INSTALL=1
-# general setup
-EDITBASE_IS_DEPS="python3-numpy python3-matplotlib"
-EDITBASE_IS_PIP="numpy"
-EDITBASE_IS_CFG_FILE="/boot/config.txt"
-
-#### Moonraker Setup [06_moonraker.sh]
-# There is not much to setup, because it reuses moonrakers install script
-EDITBASE_MOONRAKER_REPO_SHIP="https://github.com/Arksine/moonraker.git"
-EDITBASE_MOONRAKER_REPO_BRANCH="master"
-
 ### DO NOT EDIT BELOW THIS LINE! ###
 # Workaround for debconf error messages.
 DEBIAN_FRONTEND=noninteractive
 export DEBIAN_FRONTEND
+
+source "${EDITBASE_WORKSPACE}"/config.mainsail
