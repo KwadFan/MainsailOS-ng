@@ -37,6 +37,11 @@ jobs:
         run: make compress
 
       - name: Upload artifact
+        run: |
+          IMG=$(find workspace/ -type f -iname '*.xz' -printf "%f\n" 2> /dev/null)
+          echo "imageName=${IMG}" >> $GITHUB_ENV
+
         uses: actions/upload-artifact@v3
         with:
-          path: workspace/*.img.xz
+          name: ${{ env.imageName }}
+          path: workspace/${{ env.imageName }}
