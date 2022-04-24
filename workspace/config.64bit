@@ -1,0 +1,42 @@
+#!/bin/bash
+#### MainsailOS Build Chain
+####
+#### Written by Stephan Wendel aka KwadFan <me@stephanwe.de>
+#### Copyright 2022
+#### https://github.com/mainsail-crew/MainsailOS
+####
+#### This File is distributed under GPLv3
+####
+
+# shellcheck disable=all
+
+# base config
+# used to setup build environment
+# See https://github.com/OctoPrint/CustoPiZer#configuration for Details
+EDITBASE_DISTRO=raspbian
+
+EDITBASE_WORKSPACE=${DIST_PATH}/workspace
+EDITBASE_MOUNT_PATH=$EDITBASE_WORKSPACE/mount
+
+# if set will enlarge root parition prior to build by provided size in MB
+EDITBASE_IMAGE_ENLARGEROOT=2500
+
+# if set will resize root partition on image after build to minimum size +
+# provided size in MB
+EDITBASE_IMAGE_RESIZEROOT=300
+
+# a local directory on the build server to bind mount under /var/cache/apt
+EDITBASE_APT_CACHE=$EDITBASE_WORKSPACE/aptcache
+
+# cpu architecture
+EDITBASE_ARCH=arm64
+
+### DO NOT EDIT BELOW THIS LINE! ###
+# Workaround for debconf error messages.
+DEBIAN_FRONTEND=noninteractive
+export DEBIAN_FRONTEND
+
+source "${EDITBASE_WORKSPACE}"/config.mainsail
+
+# Skip pkgupgrade
+EDITBASE_RUN_FULL_UPGRADE=0
