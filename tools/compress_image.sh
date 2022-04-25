@@ -10,7 +10,7 @@
 
 # shellcheck enable=require-variable-braces
 
-set -e
+set -ex
 
 export LC_ALL=C
 
@@ -18,10 +18,12 @@ export LC_ALL=C
 # delete old compressed image
 function delete_old_image {
     local img
-    img="$(find workspace/ -iname '*.xz' 2> /dev/null)"
+    img="$(find workspace/ -iname '*.xz' 2> /dev/null || echo )"
     if [ -n "${img}" ]; then
         echo -e "Removing existing Image '${img}' ..."
-        rm -f "${img}" || echo -e "Unable to remove due file permissions!"
+        rm -f "${img}"
+    else
+        return 0
     fi
 }
 
@@ -29,7 +31,7 @@ function delete_old_image {
 function rename_output_img {
     if [ -f "${1}/output.img" ]; then
         echo -e "Renaming 'output.img' to '${2}' ..."
-        mv "${1}"/output.img "${1}/${2}"
+        mv -f "${1}"/output.img "${1}/${2}"
     else
         echo -e "No 'output.img' found ... [EXITING!]"
         exit 1
@@ -39,8 +41,8 @@ function rename_output_img {
 # call compress_img <imagename>
 function compress_img {
     echo -e "Compressing image using xz ..."
-
-    xz -evz9T0 "workspace/${1}"
+    # needs dirty pipe hack due file permissions (error on set group)
+    xz -efvz9T"$(nproc)" "${PWD}/workspace/${1}" || true
 }
 
 ### MAIN
@@ -49,7 +51,7 @@ function main {
     date="$(date +%Y-%m-%d)"
     dir="${PWD}/workspace"
     # shellcheck disable=1091
-    source "${dir}/config.local"
+    source "${dir}/config.mainsail"
     img_name="${date}-${EDITBASE_DIST_NAME,,}-${EDITBASE_DIST_VERSION}.img"
     echo -e "Rename and compress 'output.img' ..."
     delete_old_image

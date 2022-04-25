@@ -18,10 +18,15 @@ export LC_ALL=C
 source /common.sh
 install_cleanup_trap
 
+# 64Bit libc-bin error Workaround
+if [ "${EDITBASE_ARCH}" != "armv7l" ]; then
+    sudo apt-mark hold libraspberrypi-bin libraspberrypi-doc userconf-pi
+fi
+
 if [ "${EDITBASE_RUN_FULL_UPGRADE}" != "0" ]; then
     echo_green "Get latest OS updates ..."
     apt update --allow-releaseinfo-change
-    apt dist-upgrade --yes
+    apt upgrade --yes
     echo_green "...done!"
 else
     echo_red "Full Upgrade disabled by configuration! ... [SKIPPED]"

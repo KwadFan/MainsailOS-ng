@@ -1,5 +1,11 @@
 name: Build MainsailOS
 on:
+  push:
+    branches:
+      - "**"
+    paths:
+      - ".github/workflows/build.yml"
+
   workflow_dispatch:
 
 jobs:
@@ -8,38 +14,29 @@ jobs:
 
     steps:
       - name: Checkout MainsailOS Project
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           repository: ${{ github.repository }}
-          path: src
 
-      - name: Enter working directory
+      - name: Get Raspberry Pi OS bullseye Image
+        run: make get_latest
+
+      - name: Run CustoPiZer
+        uses: OctoPrint/CustoPiZer@main
+        with:
+          workspace: "${{ github.workspace }}/workspace"
+          scripts: "${{ github.workspace }}/workspace/scripts"
+          config: "${{ github.workspace }}/workspace/config.local"
+
+      - name: Compress Image
+        run: make compress
+
+      - name: Get Image Name
         run: |
-          cd src/
-          ls -al
-          make get_latest
-          ls -al workspace/
+          make get_imagename >> $GITHUB_ENV
 
-      # - name: Download Raspberry Pi OS Source Image
-      #   run: aria2c -d repository/src/image/ --seed-time=0 https://downloads.raspberrypi.org/raspios_oldstable_lite_armhf_latest.torrent
-
-      # - name: Comparing Checksums
-      #   run: |
-      #     cd repository/src/image
-      #     curl -JL https://downloads.raspberrypi.org/raspios_oldstable_lite_armhf_latest.sha256 | awk '{print $1"  "$2}' | sha256sum -c
-      # - name: Update CustomPiOS Paths
-      #   run: cd repository/src && ../../CustomPiOS/src/update-custompios-paths
-
-      # - name: Build Image
-      #   run: sudo modprobe loop && cd repository/src && sudo bash -x ./build_dist
-
-      # - name: Copy output image
-      #   run: cp ${{ github.workspace }}/repository/src/workspace/*-raspios-*-lite.img mainsailos-raspios-lite-latest.img
-
-      # - name: Compress the image
-      #   run: zip mainsailos-raspios-lite-latest.zip mainsailos-raspios-lite-latest.img
-
-      # - uses: actions/upload-artifact@v2
-      #   with:
-      #     name: mainsailos-raspios-lite-latest.zip
-      #     path: mainsailos-raspios-lite-latest.zip
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.imageName }}
+          path: workspace/${{ env.imageName }}

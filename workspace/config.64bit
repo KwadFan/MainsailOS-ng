@@ -29,7 +29,7 @@ EDITBASE_IMAGE_RESIZEROOT=300
 EDITBASE_APT_CACHE=$EDITBASE_WORKSPACE/aptcache
 
 # cpu architecture
-EDITBASE_ARCH=armv7l
+EDITBASE_ARCH=arm64
 
 ### DO NOT EDIT BELOW THIS LINE! ###
 # Workaround for debconf error messages.
@@ -37,3 +37,6 @@ DEBIAN_FRONTEND=noninteractive
 export DEBIAN_FRONTEND
 
 source "${EDITBASE_WORKSPACE}"/config.mainsail
+
+# Skip pkgupgrade
+EDITBASE_RUN_FULL_UPGRADE=0
