@@ -62,3 +62,7 @@ EDITBASE_IS_CFG_FILE="/boot/config.txt"
 # There is not much to setup, because it reuses moonrakers install script
 EDITBASE_MOONRAKER_REPO_SHIP="https://github.com/Arksine/moonraker.git"
 EDITBASE_MOONRAKER_REPO_BRANCH="master"
+
+#### password for sudo [99_passwdforsudo.sh]
+# revert passwordless sudo? (1:yes / 0:no)
+EDITBASE_REVERT_SUDO_NOPASSWD=1
