@@ -18,6 +18,10 @@ export LC_ALL=C
 source /common.sh
 install_cleanup_trap
 
+echo_green "Setup default hostname '${EDITBASE_DIST_HOSTNAME}' ..."
+echo "${EDITBASE_DIST_HOSTNAME}" > /etc/hostname
+
+
 echo_green "Creating Release file... "
 # Create mainsailos release file
 if [ -f "/etc/mainsailos_version" ]; then

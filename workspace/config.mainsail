@@ -19,6 +19,7 @@ EDITBASE_RUN_FULL_UPGRADE=1
 #### Distro Name and version [02_mainsailos.sh]
 EDITBASE_DIST_NAME="MainsailOS"
 EDITBASE_DIST_VERSION="0.7.0"
+EDITBASE_DIST_HOSTNAME="mainsail"
 # first user setup
 EDITBASE_BASE_USER="pi"
 EDITBASE_BASE_USER_PW="raspberry"
