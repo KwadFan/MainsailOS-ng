@@ -64,6 +64,13 @@ EDITBASE_IS_CFG_FILE="/boot/config.txt"
 EDITBASE_MOONRAKER_REPO_SHIP="https://github.com/Arksine/moonraker.git"
 EDITBASE_MOONRAKER_REPO_BRANCH="master"
 
+#### Sonar Setup [10_sonar.sh]
+# There is not much to setup, because it reuses sonars install script
+# To avoid install set to 0
+EDITBASE_INSTALL_SONAR=1
+EDITBASE_SONAR_REPO_SHIP="https://github.com/mainsail-crew/sonar.git"
+EDITBASE_SONAR_REPO_BRANCH="main"
+
 #### Disable Autologin [98_disable_autologin.sh]
 # Disable autologin? (1:yes / 0:no)
 EDITBASE_DISABLE_AUTOLOGIN=1
