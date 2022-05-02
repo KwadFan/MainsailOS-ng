@@ -63,6 +63,10 @@ EDITBASE_IS_CFG_FILE="/boot/config.txt"
 EDITBASE_MOONRAKER_REPO_SHIP="https://github.com/Arksine/moonraker.git"
 EDITBASE_MOONRAKER_REPO_BRANCH="master"
 
+#### Disable Autologin [98_disable_autologin.sh]
+# Disable autologin? (1:yes / 0:no)
+EDITBASE_DISABLE_AUTOLOGIN=1
+
 #### password for sudo [99_passwdforsudo.sh]
 # revert passwordless sudo? (1:yes / 0:no)
 EDITBASE_REVERT_SUDO_NOPASSWD=1

@@ -105,3 +105,8 @@ inspect:
 	docker run --rm --privileged -it \
 	-v $(WORKSPACE)/output.img:/image.img ghcr.io/octoprint/custopizer:latest \
 	/CustoPiZer/enter_image /image.img
+
+inspect2:
+	docker run --rm -it \
+	-v $(WORKSPACE)/output.img:/image.img ghcr.io/octoprint/custopizer:latest \
+	/CustoPiZer/enter_image /image.img
