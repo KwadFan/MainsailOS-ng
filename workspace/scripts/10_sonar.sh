@@ -37,6 +37,7 @@ if [ "${EDITBASE_INSTALL_SONAR=1}" == "1" ]; then
     # use sonar's  make install
     echo_green "Launch sonar install routine ..."
     pushd /home/"${EDITBASE_BASE_USER}"/sonar &> /dev/null || exit 1
+    sudo -u "${EDITBASE_BASE_USER}" \
     make install
     popd &> /dev/null || exit 1
     echo_green "...done!"
