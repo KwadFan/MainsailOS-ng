@@ -45,11 +45,12 @@ if [ "${EDITBASE_INSTALL_SONAR=1}" == "1" ]; then
         make install
     fi
     echo_green "Copying default config file ..."
-    if [ ! -d "${HOME}/klipper_config" ]; then
-        mkdir -p "${HOME}/klipper_config"
+    if [ ! -d "/home/${EDITBASE_BASE_USER}/klipper_config" ]; then
+        mkdir -p "/home/${EDITBASE_BASE_USER}/klipper_config"
     fi
     sudo -u "${EDITBASE_BASE_USER}" \
-    cp "${PWD}"/sample_config/mainsail_default.conf "${HOME}"/klipper_config/sonar.conf
+    cp "${PWD}/sample_config/mainsail_default.conf" \
+    "/home/${EDITBASE_BASE_USER}/klipper_config/sonar.conf"
 
     popd &> /dev/null || exit 1
 
