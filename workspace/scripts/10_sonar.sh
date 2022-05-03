@@ -34,11 +34,27 @@ if [ "${EDITBASE_INSTALL_SONAR=1}" == "1" ]; then
     git clone -b "${EDITBASE_SONAR_REPO_BRANCH}" "${EDITBASE_SONAR_REPO_SHIP}" sonar
     popd &> /dev/null || exit 1
 
-    # use sonar's  make install
+    # use sonar's  make unattended
     echo_green "Launch sonar install routine ..."
     pushd /home/"${EDITBASE_BASE_USER}"/sonar &> /dev/null || exit 1
+    if [ "${EDITBASE_ADD_SONAR_MOONRAKER}" == "1" ]; then
+        sudo -u "${EDITBASE_BASE_USER}" \
+        make unattended
+    else
+        sudo -u "${EDITBASE_BASE_USER}" \
+        make install
+    fi
+    echo_green "Copying default config file ..."
+    if [ ! -d "${HOME}/klipper_config" ]; then
+        mkdir -p "${HOME}/klipper_config"
+    fi
     sudo -u "${EDITBASE_BASE_USER}" \
-    make install
+    cp "${PWD}"/sample_config/mainsail_default.conf "${HOME}"/klipper_config/sonar.conf
+
     popd &> /dev/null || exit 1
+
+    # enable systemd service
+    systemctl_if_exists enable sonar.service
+
     echo_green "...done!"
 fi

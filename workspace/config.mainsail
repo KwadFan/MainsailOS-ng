@@ -66,8 +66,10 @@ EDITBASE_MOONRAKER_REPO_BRANCH="master"
 
 #### Sonar Setup [10_sonar.sh]
 # There is not much to setup, because it reuses sonars install script
-# To avoid install set to 0
+# Install of Sonar bool (1:yes / 0:no)
 EDITBASE_INSTALL_SONAR=1
+# Add Sonar to moonraker.conf (update manager) bool (1:yes / 0:no)
+EDITBASE_ADD_SONAR_MOONRAKER=1
 EDITBASE_SONAR_REPO_SHIP="https://github.com/mainsail-crew/sonar.git"
 EDITBASE_SONAR_REPO_BRANCH="main"
 
