@@ -48,7 +48,7 @@ if [ "${EDITBASE_INSTALL_CROWSNEST=1}" == "1" ]; then
     popd &> /dev/null || exit 1
 
     # enable systemd service
-    systemctl_if_exists enable crowsnest.service
+    systemctl_if_exists enable webcamd.service
 
     echo_green "...done!"
 fi
