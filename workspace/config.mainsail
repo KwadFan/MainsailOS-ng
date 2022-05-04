@@ -73,6 +73,16 @@ EDITBASE_ADD_SONAR_MOONRAKER=1
 EDITBASE_SONAR_REPO_SHIP="https://github.com/mainsail-crew/sonar.git"
 EDITBASE_SONAR_REPO_BRANCH="main"
 
+#### Crowsnest Setup [11_crowsnest.sh]
+# There is not much to setup, because it reuses sonars install script
+# Install of Sonar bool (1:yes / 0:no)
+EDITBASE_INSTALL_CROWSNEST=1
+# Add Sonar to moonraker.conf (update manager) bool (1:yes / 0:no)
+EDITBASE_ADD_CROWSNEST_MOONRAKER=1
+EDITBASE_CROWSNEST_REPO_SHIP="https://github.com/mainsail-crew/crowsnest.git"
+EDITBASE_CROWSNEST_REPO_BRANCH="main"
+
+
 #### Disable Autologin [98_disable_autologin.sh]
 # Disable autologin? (1:yes / 0:no)
 EDITBASE_DISABLE_AUTOLOGIN=1
