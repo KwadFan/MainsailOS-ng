@@ -37,13 +37,13 @@ if [ "${EDITBASE_INSTALL_CROWSNEST=1}" == "1" ]; then
     # use crowsnest's  make unattended
     echo_green "Launch crowsnest install routine ..."
     pushd /home/"${EDITBASE_BASE_USER}"/crowsnest &> /dev/null || exit 1
-    # if [ "${EDITBASE_ADD_CROWSNEST_MOONRAKER}" == "1" ]; then
-        # sudo -u "${EDITBASE_BASE_USER}" \
-        # make unattended
-    # else
+    if [ "${EDITBASE_ADD_CROWSNEST_MOONRAKER}" == "1" ]; then
+        sudo -u "${EDITBASE_BASE_USER}" \
+        make unattended
+    else
         sudo -u "${EDITBASE_BASE_USER}" \
         make install
-    # fi
+    fi
 
     popd &> /dev/null || exit 1
 
