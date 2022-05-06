@@ -1,9 +1,10 @@
 name: Lint Commit Messages
-on:
+on: [push, pull_request]
+
   workflow_dispatch:
 
 jobs:
-  commitlint:
+  commitlinter:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
