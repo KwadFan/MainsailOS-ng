@@ -1,0 +1,44 @@
+### MainsailOS
+### wpa_supplicant.conf example
+# This File is intended to setup your WiFi network if you are
+# not using Raspberry Imager to flash your SDCard.
+
+#### HINT: PLEASE DO NOT USE SIMPLE EDITORS LIKE:
+#### Wordpad (Windows) or Textedit (MacOS)
+#### Please use a proper editor!
+#### Recommended Editors are: Notepad++, VSCode, Atom or SublimeText.
+#### At least it has to support LF (linefeed) line endings!
+
+###########################################################################
+##### DO NOT FORGET TO RENAME THIS FILE TO 'wpa_supplicant.conf' !!!! #####
+##### OTHERWISE YOUR DEVICE WILL NOT REACHABLE !!!!                   #####
+###########################################################################
+
+#### More informations on how to setup see:
+#### https://www.raspberrypi.com/documentation/computers/configuration.html#configuring-networking-2
+#### or
+#### https://linux.die.net/man/5/wpa_supplicant.conf
+#### A full explained example is available here
+#### (read that only if you want to dive really deep):
+#### https://w1.fi/cgit/hostap/plain/wpa_supplicant/wpa_supplicant.conf
+
+
+### This is an example for a basic WPA2 WiFi network
+# For full list see: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
+# Please set your country code accordingly!
+# country=GB # United Kingdom
+# country=CA # Canada
+# country=DE # Germany
+# country=FR # France
+# country=US # United States
+
+
+country=<Insert 2 letter ISO 3166-1 country code here>
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+update_config=1
+
+network={
+ # scan_ssid=1 # uncomment if SSID of your network is hidden.
+ ssid="<Name of your wireless LAN>"
+ psk="<Password for your wireless LAN>"
+}
