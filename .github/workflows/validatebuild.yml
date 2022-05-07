@@ -10,6 +10,7 @@ on:
       - ".github/workflows/**"
       - "Makefile"
   pull_request:
+    types: [opened, reopened, edited, synchronize]
     branches:
       - "**"
     paths:
