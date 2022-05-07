@@ -22,12 +22,12 @@ workflow_dispatch:
 
 jobs:
   commitlint:
-    uses: .github/workflows/commitlint.yml
+    uses: ./.github/workflows/commitlint.yml
 
   shellcheck:
     needs: commitlint
-    uses: .github/workflows/shellcheck.yml
+    uses: ./.github/workflows/shellcheck.yml
 
   build:
     needs: [commitlint, shellcheck]
-    uses: .github/workflows/build.yml
+    uses: ./.github/workflows/build.yml
