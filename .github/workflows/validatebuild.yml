@@ -22,15 +22,15 @@ on:
 
 jobs:
   commitlint:
-    - name: "Lint commit message with commitlinter"
-      uses: ./.github/workflows/commitlint.yml
+    name: "Lint commit message with commitlinter"
+    uses: ./.github/workflows/commitlint.yml
 
   shellcheck:
-    - name: "Validate scripts with Shellcheck"
-      needs: commitlint
-      uses: ./.github/workflows/shellcheck.yml
+    name: "Validate scripts with Shellcheck"
+    needs: commitlint
+    uses: ./.github/workflows/shellcheck.yml
 
   build:
-    - name: "Validate Build of OS Image"
-      needs: [commitlint, shellcheck]
-      uses: ./.github/workflows/build.yml
+    name: "Validate Build of OS Image"
+    needs: [commitlint, shellcheck]
+    uses: ./.github/workflows/build.yml
