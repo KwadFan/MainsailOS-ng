@@ -1,9 +1,10 @@
-name: Lint Commit Messages
+name: "Validate build"
+
 on:
   push:
     branches:
       - "**"
-    paths-ignore:
+    paths:
       - "tools/**"
       - "workspace/scripts/**"
       - ".github/workflows/**"
@@ -11,19 +12,22 @@ on:
   pull_request:
     branches:
       - "**"
-    paths-ignore:
+    paths:
       - "tools/**"
       - "workspace/scripts/**"
       - ".github/workflows/**"
       - "Makefile"
 
-  workflow_call:
+workflow_dispatch:
 
 jobs:
-  commitlinter:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-      - uses: wagoid/commitlint-github-action@v4
+  commitlint:
+    uses: .github/workflows/commitlint.yml
+
+  shellcheck:
+    needs: commitlint
+    uses: .github/workflows/shellcheck.yml
+
+  build:
+    needs: [commitlint, shellcheck]
+    uses: .github/workflows/build.yml

@@ -1,18 +1,6 @@
 name: "Examine Scripts with shellcheck"
 on:
-  push:
-    branches:
-      - "**"
-    paths:
-      - "tools/**"
-      - "workspace/scripts/**"
-      - ".github/workflows/shellcheck.yml"
-  pull_request:
-    branches:
-      - "master"
-    paths:
-      - "tools/**"
-      - "workspace/scripts/**"
+  workflow_call:
 
 jobs:
   shellcheck:
@@ -23,12 +11,12 @@ jobs:
         scripts: ["./tools/", "./workspace/scripts"]
     steps:
       - name: Fetch Repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Run ShellCheck
         uses: ludeeus/action-shellcheck@master
         env:
           SHELLCHECK_OPTS: -ax -s bash
         with:
           scandir: ${{ matrix.scripts }}
-          ignore_paths: workspace/config.local
+          ignore_paths: workspace/config.*
           format: tty
